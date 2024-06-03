@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字翻譯工具</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #dcdcdc;
+            color: #333;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #444;
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+        .nav-link:hover {
+            color: #ccc !important;
+        }
+        .form-control, .btn-primary {
+            border-radius: 0;
+        }
+        .form-control {
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+        .form-control::placeholder {
+            color: #888;
+        }
+        .btn-primary {
+            background-color: #666;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #888;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+        h1, h3 {
+            text-align: center;
+            font-weight: 300;
+        }
+        .result {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        label {
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">導覽</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">首頁 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">連結</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                選項
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    <div class="container">
+        <h1><strong>文字翻譯工具</strong></h1>
+        <form action="/index/" method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>請選擇翻譯語言:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="language" value="l1" id="l1">
+                    <label class="form-check-label" for="l1">英翻中</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="language" value="l2" id="l2">
+                    <label class="form-check-label" for="l2">中翻英</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="language" value="l3" id="l3">
+                    <label class="form-check-label" for="l3">日翻中</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="language" value="l4" id="l4">
+                    <label class="form-check-label" for="l4">中翻日</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="word">翻譯的文字:</label>
+                <input type="text" class="form-control" id="word" name="word">
+            </div>
+            <button type="submit" class="btn btn-primary">翻譯</button>
+        </form>
+        <div class="result mt-4">
+            <h3>結果: {{ text }}</h3>
+            <h3>情感分析結果: {{ sentiment }}</h3>
+        </div>
+    </div>
+    {% if download_link %}
+    <a href="{{ download_link }}" class="btn btn-primary">下載翻譯結果</a>
+{% endif %}
+</body>
+</html>
