@@ -15,7 +15,7 @@ def index(request):
     T_ENDPOINT = 'https://api.cognitive.microsofttranslator.com/'  # 填入文字翻譯的 Web API
     output = ""
     word = ""
-    sentiment = ""
+    sentiment_localized = ""
     TA_ENDPOINT = 'https://anal.cognitiveservices.azure.com/'  # 情感分析端點
     TA_KEY = 'cc1b6daf528d4644be659995f48ba5cb'  # 情感分析 API 金鑰
     text_analytics_client = TextAnalyticsClient(endpoint=TA_ENDPOINT, credential=AzureKeyCredential(TA_KEY))
