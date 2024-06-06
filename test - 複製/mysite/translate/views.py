@@ -3,11 +3,10 @@ from django.shortcuts import render
 from msrest.authentication import CognitiveServicesCredentials
 from azure.ai.translation.text import TextTranslationClient, TranslatorCredential
 from azure.ai.translation.text.models import InputTextItem
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, generate_blob_sas, BlobSasPermissions
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.textanalytics import TextAnalyticsClient
 from datetime import datetime, timedelta
-from django.http import HttpResponse
+
 
 def index(request):
     T_REGION = 'eastus'  # 填入位置/區域
