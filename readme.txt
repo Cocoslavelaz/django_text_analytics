@@ -1,1 +1,1 @@
-This is a project in my college Azure class, using Django and Azure app to create a functional website. 
+This is a project I developed in my college Azure course, using Django and Azure App Service to create a functional website.
